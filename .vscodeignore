@@ -12,5 +12,7 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 **/*.map
 **/*.ts
-!src/template/**
+copy-templates.js
+esbuild.js
+!template/**
 !dist/**

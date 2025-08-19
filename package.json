@@ -1,12 +1,26 @@
 {
   "name": "create-uni-template",
-  "displayName": "create-uni-template",
-  "description": "create uni template file",
-  "version": "0.0.1",
+  "displayName": "组件模板生成器",
+  "description": "快速生成uni-app、Vue3和Vue2组件模板的VS Code扩展，支持Cursor编辑器",
+  "version": "0.0.2",
+  "publisher": "yy",
+  "author": {
+    "name": "yy"
+  },
+  "keywords": [
+    "vue",
+    "uni-app", 
+    "template",
+    "component",
+    "generator",
+    "cursor",
+    "vscode"
+  ],
   "engines": {
-    "vscode": "^1.103.0"
+    "vscode": "^1.70.0"
   },
   "categories": [
+    "Snippets",
     "Other"
   ],
   "activationEvents": [],
@@ -36,13 +50,13 @@
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+    "compile": "pnpm run check-types && pnpm run lint && node copy-templates.js && node esbuild.js",
     "watch": "npm-run-all -p watch:*",
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+    "package": "pnpm run check-types && pnpm run lint && node copy-templates.js && node esbuild.js --production",
     "build": "pnpm run compile && pnpm run package",
-    "package-vsce": "vsce package",
+    "package-vsce": "node copy-templates.js && vsce package",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
@@ -51,7 +65,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.103.0",
+    "@types/vscode": "^1.70.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
     "@typescript-eslint/eslint-plugin": "^8.39.0",

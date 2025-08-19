@@ -51,18 +51,28 @@ export class TemplateManager {
    * @returns 模板文件内容
    */
   public readTemplateContent(templateType: TemplateType): string {
-    const templateFile = path.join(
-      this.extensionPath,
-      'src',
-      'template',
-      `${templateType}-template.vue`
-    );
-    
-    try {
-      return fs.readFileSync(templateFile, 'utf-8');
-    } catch (error) {
-      throw new Error(`无法读取模板文件: ${error instanceof Error ? error.message : String(error)}`);
+    // 尝试多个可能的模板文件路径
+    const possiblePaths = [
+      // 打包后的路径
+      path.join(this.extensionPath, 'template', `${templateType}-template.vue`),
+      // 开发环境路径
+      path.join(this.extensionPath, 'src', 'template', `${templateType}-template.vue`),
+      // dist目录路径
+      path.join(this.extensionPath, 'dist', 'template', `${templateType}-template.vue`)
+    ];
+    console.log('readTemplateContent---possiblePaths---',possiblePaths);
+    for (const templateFile of possiblePaths) {
+      try {
+        if (fs.existsSync(templateFile)) {
+          return fs.readFileSync(templateFile, 'utf-8');
+        }
+      } catch (error) {
+        // 继续尝试下一个路径
+        continue;
+      }
     }
+    
+    throw new Error(`无法读取模板文件: ${templateType}-template.vue。请确保模板文件存在。`);
   }
 
   /**

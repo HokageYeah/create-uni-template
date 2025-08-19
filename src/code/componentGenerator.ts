@@ -88,13 +88,13 @@ export class ComponentGenerator {
   ): Promise<void> {
     // 读取模板内容
     const templateContent = this.templateManager.readTemplateContent(templateType);
-    
+    console.log('generateComponentFile---templateContent---',templateContent);
     // 处理模板内容（替换变量）
     const processedContent = this.templateManager.processTemplate(templateContent, componentName);
-    
+    console.log('generateComponentFile---processedContent---',processedContent);
     // 目标文件路径
     const targetFile = path.join(savePath, `${componentName}.vue`);
-    
+        
     // 写入文件
     this.templateManager.writeComponentFile(processedContent, targetFile);
     

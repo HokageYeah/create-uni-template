@@ -48,20 +48,26 @@
 
 ```
 create-uni-template/
-  ├── src/                      # 源代码目录
-  │   ├── extension.ts          # 插件入口文件
-  │   ├── code/                 # 核心代码目录
-  │   │   ├── componentGenerator.ts  # 组件生成器
-  │   │   ├── templateManager.ts     # 模板管理器
-  │   │   └── userInterface.ts       # 用户界面处理
-  │   └── template/             # 模板文件目录
-  │       ├── uni-template.vue  # uni-app模板
-  │       ├── vue3-template.vue # Vue3模板
-  │       └── vue2-template.vue # Vue2模板
-  ├── package.json              # 插件配置文件
-  ├── README.md                 # 说明文档
-  ├── CHANGELOG.md              # 更新日志
-  └── tsconfig.json             # TypeScript配置
+├── dist/                          # 构建输出
+│   ├── extension.js               # 主程序
+│   └── extension.js.map           # 源码映射
+├── template/                      # 模板文件（打包时复制）
+│   ├── uni-template.vue          # uni-app模板
+│   ├── vue3-template.vue         # Vue3模板
+│   └── vue2-template.vue         # Vue2模板
+├── src/                          # 源代码
+│   ├── extension.ts              # 入口文件
+│   ├── code/                     # 核心代码
+│   │   ├── componentGenerator.ts # 组件生成器
+│   │   ├── templateManager.ts    # 模板管理器
+│   │   └── userInterface.ts      # 用户界面
+│   └── template/                 # 源模板文件
+├── copy-templates.js             # 模板复制脚本
+├── test-build.js                 # 构建测试脚本
+├── package.json                  # 插件配置
+├── README.md                     # 主文档
+├── CURSOR_USAGE.md              # Cursor使用指南
+└── create-uni-template-0.0.1.vsix # 打包文件
 ```
 
 ## 文件说明
@@ -88,12 +94,26 @@ create-uni-template/
   "name": "create-uni-template",   // 插件名称
   "displayName": "create-uni-template",  // 显示名称
   "description": "create uni template file",  // 插件描述
-  "version": "0.0.1",  // 版本号
+  "version": "0.0.2",  // 版本号
   "engines": {
-    "vscode": "^1.103.0"  // 支持的VS Code版本
+    "vscode": "^1.70.0"  // 支持的VS Code版本
   },
+  "publisher": "yy",  // 发布者
+  "author": { // 作者
+    "name": "yy"
+  },
+  "keywords": [ // 关键词
+    "vue",
+    "uni-app", 
+    "template",
+    "component",
+    "generator",
+    "cursor",
+    "vscode"
+  ],
   "categories": [
-    "Other"  // 插件类别
+    "Other",  // 插件分类
+    "Snippets" // 代码片段
   ],
   "contributes": {
     "commands": [  // 注册的命令
@@ -209,10 +229,6 @@ export default {
 - 初始版本
 - 支持生成uni-app、Vue3和Vue2组件模板
 - 支持通过命令面板、编辑器右键菜单和资源管理器右键菜单使用
-
-## 贡献
-
-欢迎提交问题和建议到[GitHub仓库](https://github.com/yourusername/create-uni-template)。
 
 ## 许可证
 
